@@ -26,6 +26,11 @@ def main():
         libc.prctl(15, 'My Simple App', 0, 0, 0)
 
     print("PLATFORM " +sys.platform)
+    
+    while True:
+        print("WAITING...")
+        time.sleep(60)
+
     return
 
 
