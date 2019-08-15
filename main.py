@@ -25,7 +25,8 @@ def main():
     search_strings = ["canon ef l defekt",
                       "canon ef usm defekt",
                       "canon ef 85 defekt",
-                      "canon 70 200 defekt"]
+                      "canon 70 200 defekt",
+                      "canon ef"]
 
     search_runner.start_search_runners(search_strings)
 

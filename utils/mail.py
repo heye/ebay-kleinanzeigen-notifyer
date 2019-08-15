@@ -1,47 +1,37 @@
 import traceback
 import smtplib
+import os
 from email.message import EmailMessage
 
 #sendgrid
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-def send_mail(subject: str, content: str, content_html: str, toAddr: str):
+def get_api_key():
+    data = ""
 
-    #receivers = one_mail.get(dbns.mail_outbound.receivers,[]) 
-    #toAddr = ", ".join(receivers) 
+    try:
+        file_path = "sendgrid_api_key.txt"
 
-    mail_server = "wp12381010.mailout.server-he.de"
-    mail_port = "587"
-    mail_user = "wp12381010-alerts"
-    mail_passwd = "#f%fsdfdGFDf45"
-    mail_from_addr = "alerts@cloudplan.net"
+        if not os.path.isfile(file_path):
+            return data
 
-    msg = EmailMessage() 
-    msg.set_content(content) 
-    msg.add_alternative(content_html, subtype='html') 
-    msg['Subject'] = subject 
-    msg['From'] = mail_from_addr 
-    msg['To'] = toAddr 
-
-    try: 
-        # Send the message via our own SMTP server. 
-        conn = smtplib.SMTP(mail_server,mail_port) 
-        conn.ehlo() 
-        conn.starttls() # enable TLS 
-        conn.ehlo() 
-        conn.login(mail_user, mail_passwd) 
-        conn.send_message(msg) 
-        conn.quit() 
-
-    except Exception as e: 
+        #print("STORAGE READ " + file_path)
+    
+        with open(file_path, 'r+') as temp_file:
+            data = temp_file.read()
+    except:
         traceback.print_exc()
+
+    return data
 
 
 def send_sendgrid(subject: str, content: str, content_html: str, toAddr: str):
 
-    api_key = "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"
+    api_key = get_api_key()
     mail_from_addr = "info@rimworld.me"
+
+    print("MAIL KEY " + api_key)
 
     message = Mail(
     from_email=mail_from_addr,
