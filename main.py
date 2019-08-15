@@ -12,6 +12,8 @@ import json
 import time
 import sys
 
+import setproctitle
+
 from ebay.Kl import Kl
 from utils import item_cache
 from utils.print_list import print_list
@@ -20,12 +22,8 @@ from utils import notifications
 from jobs import search_runner
     
 def main():
-    if sys.platform == 'linux':
-        import ctypes
-        libc = ctypes.cdll.LoadLibrary('libc.so.6')
-        libc.prctl(15, 'My Simple App', 0, 0, 0)
 
-    print("PLATFORM " +sys.platform)
+    setproctitle.setproctitle("test")
     
     while True:
         print("WAITING...")
