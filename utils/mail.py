@@ -23,7 +23,7 @@ def get_api_key():
     except:
         traceback.print_exc()
 
-    return data
+    return data.strip()
 
 
 def send_sendgrid(subject: str, content: str, content_html: str, toAddr: str):
@@ -44,8 +44,8 @@ def send_sendgrid(subject: str, content: str, content_html: str, toAddr: str):
         print(response.status_code)
         print(response.body)
         print(response.headers)
-    except Exception as e:
-        print(e.message)
+    except:
+        traceback.print_exc()
 
 
 
