@@ -22,21 +22,12 @@ from utils import notifications
 from jobs import search_runner
     
 def main():
-
-    setproctitle.setproctitle("test")
-    
-    while True:
-        print("WAITING...")
-        time.sleep(60)
-
-    return
-
+    setproctitle.setproctitle("ebay_kl_runner")
 
     search_strings = ["canon ef l defekt",
                       "canon ef usm defekt",
                       "canon ef 85 defekt",
-                      "canon 70 200 defekt",
-                      "canon ef"]
+                      "canon 70 200 defekt"]
 
     search_runner.start_search_runners(search_strings)
 
