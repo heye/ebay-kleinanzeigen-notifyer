@@ -10,11 +10,7 @@ import urllib.error
 import re
 import json
 import time
-
-try:
-    import procname
-except:
-    traceback.print_exc()
+import sys
 
 from ebay.Kl import Kl
 from utils import item_cache
@@ -24,11 +20,14 @@ from utils import notifications
 from jobs import search_runner
     
 def main():
+    if sys.platform == 'linux2':
+        import ctypes
+        libc = ctypes.cdll.LoadLibrary('libc.so.6')
+        libc.prctl(15, 'My Simple App', 0, 0, 0)
 
-    try:
-        procname.setprocname('EbayKlRunner')
-    except:
-        traceback.print_exc()
+    print("PLATFORM " +sys.platform)
+    return
+
 
     search_strings = ["canon ef l defekt",
                       "canon ef usm defekt",
