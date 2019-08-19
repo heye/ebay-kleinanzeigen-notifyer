@@ -7,6 +7,7 @@ from email.message import EmailMessage
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+
 def get_api_key():
     data = ""
 

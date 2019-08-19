@@ -1,5 +1,34 @@
+import os
+import json
+import traceback
 
 from utils.mail import send_sendgrid
+
+
+
+def get_mail_receivers():
+    data = ""
+
+    try:
+        file_path = "mail_receivers.txt"
+
+        if not os.path.isfile(file_path):
+            return data
+
+        #print("STORAGE READ " + file_path)
+    
+        with open(file_path, 'r+') as temp_file:
+            data = temp_file.read()
+
+
+        if not data:
+            return []
+
+        return json.loads(data)
+    except:
+        traceback.print_exc()
+
+    return []
 
 
 def notify_ads(new_ads):
@@ -22,4 +51,6 @@ def notify_ads(new_ads):
 
     print("MAIL: " + message)
 
-    send_sendgrid("Neue Angebote!", "", message, "heye.everts.1@gmail.com")
+    mail_receivers = get_mail_receivers()
+    for one_mail in mail_receivers:
+        send_sendgrid("Neue Angebote!", "", message, one_mail)
