@@ -32,8 +32,8 @@ class ebay:
             addoc = cls.parse_ad(one_item)
             if addoc and addoc.get("link", "").startswith("https://www.ebay.de"):
                 addocs.append(addoc)
-                if len(addocs) >= 10:
-                    break
+                #if len(addocs) >= 10:
+                #    break
             else:
                 print("ADDOC HAS NO LINK")
         
@@ -47,7 +47,7 @@ class ebay:
     @classmethod
     def make_url(cls, search_string: str) -> str:
         search_string_mod = search_string.replace(" ", "+")
-        print(search_string_mod)
+        #print(search_string_mod)
         #https://www.ebay.de/sch/i.html?_nkw=canon+ef+defekt&_sop=10
 
         return "https://www.ebay.de/sch/i.html?_nkw=" + search_string_mod + "&_sop=10"
@@ -79,9 +79,15 @@ class ebay:
         items = []
         addocs = []
         one_item = ""
+
+        search_end = "<li class=\"lvresult clearfix li\">"
         
         #get html for each ad
         for one_line in html.splitlines():
+            if search_end in one_line:
+                #print("END OF SEARCH RESULT AFTER " + str(len(items)) + " ITEMS")
+                break
+
             if not found_ad and ad_begin in one_line:
                 found_ad = True
                 
@@ -104,6 +110,9 @@ class ebay:
             descr_start = one_item.find(">", start + 3) + 1
             link_start = one_item.find("href=\"") + 6
             link_end = one_item.find("\"", link_start)
+            link_end2 = one_item.find("?", link_start)
+            if link_end2 > 0 and link_end2 < link_end:
+                link_end = link_end2
             #print("LINK " + one_item[link_start: link_end])
             #print("DESCR " + one_item[descr_start: end])
 

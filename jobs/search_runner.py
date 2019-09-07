@@ -23,8 +23,8 @@ def search_runner_kl(search_string: str):
         new_items = item_cache.cache_new(items, filename)
 
         if new_items:
-            #print("NEW NEW NEW FOR SEARCH " + filename)
-            #print_list(new_items)
+            print("NEW NEW NEW FOR SEARCH " + filename)
+            print_list(new_items)
 
             notifications.notify_ads(headline, new_items)
 
@@ -44,8 +44,8 @@ def search_runner_ebay(search_string: str):
         new_items = item_cache.cache_new(items, filename)
 
         if new_items:
-            #print("NEW NEW NEW FOR SEARCH " + filename)
-            #print_list(new_items)
+            print("NEW NEW NEW FOR SEARCH " + filename)
+            print_list(new_items)
             notifications.notify_ads(headline, new_items)
 
         print("WAITING... " + filename + " TOTAL " + str(len(items)))

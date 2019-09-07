@@ -49,6 +49,7 @@ def notify_ads(headline, new_ads):
 
     print("MAIL: " + message)
 
+    return
     mail_receivers = get_mail_receivers()
     for one_mail in mail_receivers:
         send_sendgrid("Neue Angebote!", "", message, one_mail)
