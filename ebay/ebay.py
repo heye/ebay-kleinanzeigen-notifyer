@@ -14,29 +14,30 @@ import time
 from utils.print_list import print_list
 
 
-class Kl:
+class ebay:
     #returns an array of documents representing one ad each
     # TODO: describe structure of docs
     @classmethod
-    def search(cls, search_string: str) -> Dict[any, any]:
+    def search(cls, search_string: str) -> List[any]:
         
         html = cls.read_page(cls.make_url(search_string))
         html_items = cls.split_html(html)
-    
-        link_prefix = "https://www.ebay-kleinanzeigen.de"
+
+        if not html_items:
+            print("NO HTML ITEMS")
 
         #deconstruct each ad html into link and description
         addocs = []
         for one_item in html_items:
             addoc = cls.parse_ad(one_item)
-            if addoc and addoc.get("link", "").startswith("/s-anzeige"):
-                new_link = link_prefix + addoc.get("link", "")
-                addoc.update({"link": new_link})
+            if addoc and addoc.get("link", "").startswith("https://www.ebay.de"):
                 addocs.append(addoc)
                 if len(addocs) >= 10:
                     break
-
-        #print("#### PARSED ####")
+            else:
+                print("ADDOC HAS NO LINK")
+        
+                #print("#### PARSED ####")
         #print_list(addocs)
 
         return addocs
@@ -45,9 +46,11 @@ class Kl:
 
     @classmethod
     def make_url(cls, search_string: str) -> str:
-        search_string_mod = search_string.replace(" ", "-")
-        #print(search_string_mod)
-        return "http://www.ebay-kleinanzeigen.de/s-" + search_string_mod + "/k0"
+        search_string_mod = search_string.replace(" ", "+")
+        print(search_string_mod)
+        #https://www.ebay.de/sch/i.html?_nkw=canon+ef+defekt&_sop=10
+
+        return "https://www.ebay.de/sch/i.html?_nkw=" + search_string_mod + "&_sop=10"
 
 
     @classmethod
@@ -71,8 +74,8 @@ class Kl:
             return {}
 
         found_ad = False
-        ad_begin = "<article class=\"aditem\""
-        ad_end = "</article>"
+        ad_begin = "<h3 class=\"lvtitle\">"
+        ad_end = "</h3>"
         items = []
         addocs = []
         one_item = ""

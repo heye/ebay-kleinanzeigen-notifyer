@@ -21,7 +21,9 @@ from utils import notifications
 
 from jobs import search_runner
     
+
 def main():
+
     setproctitle.setproctitle("ebay_kl_runner")
 
     search_strings = ["canon ef l defekt",
