@@ -61,8 +61,8 @@ def start_search_runners(search_string_list: List[str]):
         threads.append(one_thread)
         one_thread.start()
 
-        one_thread = threading.Thread(target=search_runner_ebay, args=[one_search_string])
-        threads.append(one_thread)
-        one_thread.start()
+        #one_thread = threading.Thread(target=search_runner_ebay, args=[one_search_string])
+        #threads.append(one_thread)
+        #one_thread.start()
 
 
